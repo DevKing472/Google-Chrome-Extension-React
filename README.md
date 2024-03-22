@@ -96,25 +96,11 @@ The Proxy API Controller Functions are <a href='https://github.com/ElishaKay/soc
 Controller functions are imported and injected into the routes files like so (Example from <a href='https://github.com/ElishaKay/social-king/blob/master/Proxy/server/proxy-routes/blog.js'>Proxy/routes/proxy-routes/blog.js</a>:
 ):
 
-```javascript
-const {
-    create,
-    list,
-    listForSitemap,
-    listAllBlogsCategoriesTags,
-    read,
-    remove,
-    listByUser
-} = require('../proxy-controllers/blog');
-```
 
 <h3>When an HTTP Request Hits The Server</h3>
 
 Here's another exampe from that same route file mentioned above, <a href='https://github.com/ElishaKay/social-king/blob/master/Proxy/server/proxy-routes/blog.js'>Proxy/routes/proxy-routes/blog.js</a>:
 
-```javascript
-router.post('/user/blog', requireSignin, authMiddleware, create);
-```
 
 That means, when a Post request is made to '/proxy/blog', the Req, Res, and Next objects are passed to the <em>requireSignin, adminMiddleware, and create</em> in sequential order.
 
@@ -124,27 +110,3 @@ The <em>Req</em> object contains all the functionality required for handling a r
 The <em>Res</em> object contains all the functionality required for sending back a response.
 The <em>Next</em> function contains all the functionality required for sending <em>Req & Res</em> into the next function in the Conveyor Belt.
 
-The easiest way to think of these 3 objects is as if they are going through a Manufacturing Conveyor Belt. Each function (also called: 'middleware') has the ability to tack new fields unto these objects.
-
-For example, <a href='https://github.com/ElishaKay/social-king/blob/master/Proxy/server/proxy-controllers/auth.js'>in the authMiddleware function</a>, we grab the email from the POST query string, search the database for that user, and then tack the user object unto the Req object, like so:
-
-```javascript
-exports.authMiddleware = (req, res, next) => {
-    // grab the email from the POST query string
-    let email = req.query.email.toLowerCase();
-    ... 
-    // search the database for the user with the given email
-    User.findOne({ email: email }).exec((err, user) => {
-    ...
-    //tack the user object unto the Req object so that the user object can be accessed by the next middleware functions down the chain 
-    req.user = user;
-    ...
-    // Pass the req, res, and next() objects into the next function in the chain
-    next();
-```
-
-The benefit of this is that when we get to the next function in the chain, the <a href='https://github.com/ElishaKay/social-king/blob/master/Proxy/server/proxy-controllers/blog.js'>blog<em>Create</em> function</a>, we can use the user object we got the previous middleware function, like so:
-
-```javascript
-blog.postedBy = req.user._id;
-```
