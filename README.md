@@ -5,27 +5,6 @@ You can learn how to get it up & running with help from the Udemy Course: <a hre
 
 For those that want to dig deeper: here's some more info for your perusal:
 
-<h1>Social King</h1>
-
-Admin App Homepage:
-
-<img src="Docs/homepage.JPG"/>
-
-Table of Contents for this Repo:
-
-- [About](#about)
-- [Technologies Overview](#technologies)
-- [Getting Started](#getting-started)
-
-<br>
-
-
-About
---------
-
-We empower shopify store owners to promote whatever products they like alongside user-generated content.
-
-
 <em>Admin App Blog Update Page:</em>
 <br>
 <img src="Docs/BlogUpdatePage.png"/>
